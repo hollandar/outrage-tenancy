@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Tenancy.Postgres.Migrations
+namespace Outrage.Tenancy.Postgres.Migrations
 {
     /// <inheritdoc />
     public partial class initial : Migration
@@ -16,7 +16,8 @@ namespace Tenancy.Postgres.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TenantId = table.Column<string>(type: "text", nullable: false)
+                    TenantId = table.Column<string>(type: "text", nullable: false),
+                    Iv = table.Column<byte[]>(type: "bytea", nullable: false)
                 },
                 constraints: table =>
                 {

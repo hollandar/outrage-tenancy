@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tenancy.Models;
+using Outrage.Tenancy.Models;
 
-namespace Tenancy.Providers
+namespace Outrage.Tenancy.Providers
 {
     public interface ITenancyIdProvider
     {

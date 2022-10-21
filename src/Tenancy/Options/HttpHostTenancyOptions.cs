@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tenancy.Options
+namespace Outrage.Tenancy.Options
 {
     public sealed class HttpHostTenancyOptions
     {

@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "js", "src/js\js.csproj", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jstest", "src/jstest\jstest.csproj", "{ED6163F8-5DBD-49E5-BE94-30EF552C934F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenancy", "src/Tenancy\Tenancy.csproj", "{202D6007-847A-47D2-9791-F41E077F194B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenancy", "src/Tenancy\Outrage.Tenancy.csproj", "{202D6007-847A-47D2-9791-F41E077F194B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenancy.Postgres", "src/Tenancy.Postgres\Tenancy.Postgres.csproj", "{0CD4EC35-3F9D-49F7-BC33-77E84064550E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postgres", "src/Postgres\Outrage.Tenancy.Postgres.csproj", "{0CD4EC35-3F9D-49F7-BC33-77E84064550E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

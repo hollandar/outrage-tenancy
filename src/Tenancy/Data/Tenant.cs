@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tenancy.Data
+namespace Outrage.Tenancy.Data
 {
     public class Tenant
     {

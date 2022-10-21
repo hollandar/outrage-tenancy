@@ -1,1 +1,0 @@
-dotnet ef migrations add initial -s ..\WebApplication2\WebApplication2.csproj -p .\Tenancy.Postgres.csproj -c TenancyDbContext

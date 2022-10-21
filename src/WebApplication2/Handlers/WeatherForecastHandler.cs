@@ -1,4 +1,4 @@
-﻿using Tenancy;
+﻿using Outrage.Tenancy;
 
 namespace WebApplication2.Handlers
 {

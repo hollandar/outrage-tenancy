@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Tenancy.Providers
+namespace Outrage.Tenancy.Providers
 {
     [Serializable]
     internal class TenantNotSpecifiedException : Exception

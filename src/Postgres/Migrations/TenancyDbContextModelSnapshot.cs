@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Tenancy.Data;
+using Outrage.Tenancy.Data;
 
 #nullable disable
 
-namespace Tenancy.Postgres.Migrations
+namespace Outrage.Tenancy.Postgres.Migrations
 {
     [DbContext(typeof(TenancyDbContext))]
-    [Migration("20221020221941_initial")]
-    partial class initial
+    partial class TenancyDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,11 +22,15 @@ namespace Tenancy.Postgres.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Tenancy.Data.Tenant", b =>
+            modelBuilder.Entity("Outrage.Tenancy.Data.Tenant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<byte[]>("Iv")
+                        .IsRequired()
+                        .HasColumnType("bytea");
 
                     b.Property<string>("TenantId")
                         .IsRequired()
@@ -40,7 +41,7 @@ namespace Tenancy.Postgres.Migrations
                     b.ToTable("Tenants");
                 });
 
-            modelBuilder.Entity("Tenancy.Data.TenantValue", b =>
+            modelBuilder.Entity("Outrage.Tenancy.Data.TenantValue", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,9 +68,9 @@ namespace Tenancy.Postgres.Migrations
                     b.ToTable("Values");
                 });
 
-            modelBuilder.Entity("Tenancy.Data.TenantValue", b =>
+            modelBuilder.Entity("Outrage.Tenancy.Data.TenantValue", b =>
                 {
-                    b.HasOne("Tenancy.Data.Tenant", "Tenant")
+                    b.HasOne("Outrage.Tenancy.Data.Tenant", "Tenant")
                         .WithMany("Values")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -78,7 +79,7 @@ namespace Tenancy.Postgres.Migrations
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("Tenancy.Data.Tenant", b =>
+            modelBuilder.Entity("Outrage.Tenancy.Data.Tenant", b =>
                 {
                     b.Navigation("Values");
                 });

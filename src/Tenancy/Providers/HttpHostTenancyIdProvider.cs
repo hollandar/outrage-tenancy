@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tenancy.Models;
-using Tenancy.Options;
+using Outrage.Tenancy.Models;
+using Outrage.Tenancy.Options;
 
-namespace Tenancy.Providers
+namespace Outrage.Tenancy.Providers
 {
     public sealed class HttpHostTenancyIdProvider : ITenancyIdProvider
     {

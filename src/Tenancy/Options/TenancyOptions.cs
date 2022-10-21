@@ -1,4 +1,4 @@
-﻿namespace Tenancy.Options
+﻿namespace Outrage.Tenancy.Options
 {
     public sealed class TenancyOptions
     {

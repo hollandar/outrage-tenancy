@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tenancy.Models;
+using Outrage.Tenancy.Models;
 
-namespace Tenancy
+namespace Outrage.Tenancy
 {
     sealed class DefaultTenantBuilder : ITenantBuilder
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text;
-using Tenancy.Data;
-using Tenancy.Models;
-using Tenancy.Options;
-using Tenancy.Providers;
+using Outrage.Tenancy.Data;
+using Outrage.Tenancy.Models;
+using Outrage.Tenancy.Options;
+using Outrage.Tenancy.Providers;
 
-namespace Tenancy
+namespace Outrage.Tenancy
 {
     public sealed class TenancyService : ITenancyService
     {

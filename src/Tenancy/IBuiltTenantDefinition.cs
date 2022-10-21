@@ -1,6 +1,6 @@
-﻿using Tenancy.Models;
+﻿using Outrage.Tenancy.Models;
 
-namespace Tenancy
+namespace Outrage.Tenancy
 {
     public interface IBuiltTenantDefinition
     {

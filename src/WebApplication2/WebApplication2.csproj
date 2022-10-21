@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tenancy.Postgres\Tenancy.Postgres.csproj" />
+    <ProjectReference Include="..\Postgres\Outrage.Tenancy.Postgres.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tenancy.Data;
-using Tenancy.Options;
-using Tenancy.Providers;
+using Outrage.Tenancy.Data;
+using Outrage.Tenancy.Options;
+using Outrage.Tenancy.Providers;
 
-namespace Tenancy
+namespace Outrage.Tenancy
 {
     public static class StartupExtensions
     {

@@ -7,10 +7,10 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Tenancy.Data;
-using Tenancy.Models;
+using Outrage.Tenancy.Data;
+using Outrage.Tenancy.Models;
 
-namespace Tenancy
+namespace Outrage.Tenancy
 {
     public sealed class TenancyStore
     {

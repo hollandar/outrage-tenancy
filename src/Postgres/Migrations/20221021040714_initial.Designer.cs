@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Tenancy.Data;
+using Outrage.Tenancy.Data;
 
 #nullable disable
 
-namespace Tenancy.Postgres.Migrations
+namespace Outrage.Tenancy.Postgres.Migrations
 {
     [DbContext(typeof(TenancyDbContext))]
-    [Migration("20221021022330_tenantIv")]
-    partial class tenantIv
+    [Migration("20221021040714_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Tenancy.Postgres.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Tenancy.Data.Tenant", b =>
+            modelBuilder.Entity("Outrage.Tenancy.Data.Tenant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,7 @@ namespace Tenancy.Postgres.Migrations
                     b.ToTable("Tenants");
                 });
 
-            modelBuilder.Entity("Tenancy.Data.TenantValue", b =>
+            modelBuilder.Entity("Outrage.Tenancy.Data.TenantValue", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,9 +71,9 @@ namespace Tenancy.Postgres.Migrations
                     b.ToTable("Values");
                 });
 
-            modelBuilder.Entity("Tenancy.Data.TenantValue", b =>
+            modelBuilder.Entity("Outrage.Tenancy.Data.TenantValue", b =>
                 {
-                    b.HasOne("Tenancy.Data.Tenant", "Tenant")
+                    b.HasOne("Outrage.Tenancy.Data.Tenant", "Tenant")
                         .WithMany("Values")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -82,7 +82,7 @@ namespace Tenancy.Postgres.Migrations
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("Tenancy.Data.Tenant", b =>
+            modelBuilder.Entity("Outrage.Tenancy.Data.Tenant", b =>
                 {
                     b.Navigation("Values");
                 });

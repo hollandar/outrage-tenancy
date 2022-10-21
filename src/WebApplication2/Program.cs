@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Tenancy;
-using Tenancy.Data;
-using Tenancy.Providers;
+using Microsoft.OpenApi.Models;
+using Outrage.Tenancy;
+using Outrage.Tenancy.Data;
+using Outrage.Tenancy.Providers;
 using WebApplication2.Extensions;
 using WebApplication2.Handlers;
 
@@ -16,7 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IHttpHandler, WeatherForecastHandler>();
 builder.Services.AddTenancy(dbOptions =>
 {
-    dbOptions.UseNpgsql(builder.Configuration.GetConnectionString("Tenant"), o => o.MigrationsAssembly("Tenancy.Postgres"));
+    dbOptions.UseNpgsql(builder.Configuration.GetConnectionString("Tenant"), o => o.MigrationsAssembly("Outrage.Tenancy.Postgres"));
 }, options =>
 {
     builder.Configuration.GetSection("TenantOptions").Bind(options);

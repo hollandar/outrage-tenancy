@@ -1,0 +1,1 @@
+dotnet ef database update -p .\Outrage.Tenancy.Postgres.csproj -s ..\WebApplication2\WebApplication2.csproj

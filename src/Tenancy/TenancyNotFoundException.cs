@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Tenancy
+namespace Outrage.Tenancy
 {
     [Serializable]
     internal class TenancyNotFoundException : Exception

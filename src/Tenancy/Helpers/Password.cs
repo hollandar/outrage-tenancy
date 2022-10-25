@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,11 +13,11 @@ namespace Outrage.Tenancy.Helpers
         public static string Generate(int length)
         {
             var builder = new StringBuilder();
-            var random = new Random();
-
-            while (builder.Length < length)
+            byte[] indexes = RandomNumberGenerator.GetBytes(length);
+            foreach (byte index in indexes)
             {
-                builder.Append(Allowed[random.Next(Allowed.Length)]);
+                int ix = (int)(((double)index / byte.MaxValue) * Allowed.Length);
+                builder.Append(Allowed[ix]);
             }
 
             return builder.ToString();

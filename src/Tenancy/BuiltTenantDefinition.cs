@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Outrage.Tenancy.Models;
+using Outrage.Tenancy.Definition;
 
 namespace Outrage.Tenancy
 {
     public class BuiltTenantDefinition: IBuiltTenantDefinition
     {
-        private readonly TenantModel tenantDefinition;
+        private readonly TenancyDefinition tenantDefinition;
 
-        public BuiltTenantDefinition(TenantModel tenantDefinition)
+        public BuiltTenantDefinition(TenancyDefinition tenantDefinition)
         {
             this.tenantDefinition = tenantDefinition;
         }
 
-        public TenantModel Definition { get { return tenantDefinition; } }
+        public TenancyDefinition Definition { get { return tenantDefinition; } }
+
+        public void Dispose()
+        {
+            this.tenantDefinition?.Dispose();
+        }
     }
 }

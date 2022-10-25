@@ -2,13 +2,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using Outrage.Tenancy.Data;
-using Outrage.Tenancy.Models;
+using Outrage.Tenancy.Definition;
 using Outrage.Tenancy.Options;
 using Outrage.Tenancy.Providers;
+using Outrage.Tenancy.Features;
 
 namespace Outrage.Tenancy
 {
-    public sealed class TenancyService : ITenancyService
+    internal sealed class TenancyBuilder : ITenancyService
     {
         static HashSet<string> migratedTenancies = new HashSet<string>();
         
@@ -18,9 +19,9 @@ namespace Outrage.Tenancy
         private readonly TenancyDbContext tenancyDbContext;
         private readonly Dictionary<string, IBuiltTenantDefinition> builtDefinitions = new();
 
-        public TenancyService(ITenancyIdProvider? tenancyIdProvider, IServiceProvider serviceProvider)
+        public TenancyBuilder(IServiceProvider serviceProvider)
         {
-            this.tenancyIdProvider = tenancyIdProvider;
+            this.tenancyIdProvider = serviceProvider.GetService<ITenancyIdProvider>();
             this.tenancyOptions = serviceProvider.GetService<TenancyOptions>() ?? new();
             this.tenancyBuilder = serviceProvider.GetService<ITenantBuilder>() ?? new DefaultTenantBuilder(serviceProvider);
             this.tenancyDbContext = serviceProvider.GetRequiredService<TenancyDbContext>();
@@ -51,7 +52,7 @@ namespace Outrage.Tenancy
                 return builtDefinitions[tenantId.AsString];
             }
 
-            var tenantDefinition = new TenantModel(tenantId);
+            var tenantDefinition = new TenancyDefinition(tenantId);
             var tenantRecord = this.tenancyDbContext.Tenants.Where(r => r.TenantId == tenantDefinition.TenantId.AsString).FirstOrDefault();
             TenancyStore? tenancyStore = null;
             var key = Encoding.UTF8.GetBytes(this.tenancyOptions.Key);
@@ -67,25 +68,27 @@ namespace Outrage.Tenancy
                 tenantRecord.TenantId = tenantDefinition.TenantId.AsString;
                 tenantRecord.Iv = tenantDefinition.Iv;
                 this.tenancyDbContext.Tenants.Add(tenantRecord);
-                await this.tenancyDbContext.SaveChangesAsync();
 
                 // Only do the following if the tenancy never existed
-                tenancyStore = new TenancyStore(this.tenancyDbContext, key, tenantDefinition);
-                await this.tenancyBuilder.EstablishTenancyAsync(tenancyStore, tenantDefinition);
+                tenantDefinition.Store = new TenancyStore(this.tenancyDbContext, key, tenantDefinition);
+                await this.tenancyBuilder.EstablishTenancyAsync(tenantDefinition);
+                await this.tenancyDbContext.SaveChangesAsync();
             }
             else
             {
                 tenantDefinition.Id = tenantRecord.Id;
                 tenantDefinition.Iv = tenantRecord.Iv;
-                tenancyStore = new TenancyStore(this.tenancyDbContext, key, tenantDefinition);
+                tenantDefinition.Store = new TenancyStore(this.tenancyDbContext, key, tenantDefinition);
             }
-            var builtTenancy = await this.tenancyBuilder.BuildTenancyAsync(tenancyStore, tenantDefinition);
+
+            var builtTenancy = await this.tenancyBuilder.BuildTenancyAsync(tenantDefinition);
 
             if (!migratedTenancies.Contains(builtTenancy.Definition.TenantId.AsString))
             {
-                await this.tenancyBuilder.MigrateTenancyAsync(tenancyStore, builtTenancy);
+                await this.tenancyBuilder.MigrateTenancyAsync(builtTenancy);
                 migratedTenancies.Add(builtTenancy.Definition.TenantId.AsString);
             }
+
 
             builtDefinitions.Add(builtTenancy.Definition.TenantId.AsString, builtTenancy);
             return builtTenancy;

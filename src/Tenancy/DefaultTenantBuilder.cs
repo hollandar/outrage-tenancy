@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Outrage.Tenancy.Models;
+using Outrage.Tenancy.Definition;
 
 namespace Outrage.Tenancy
 {
@@ -18,20 +18,20 @@ namespace Outrage.Tenancy
             this.logger = serviceProvider.GetService<ILogger<DefaultTenantBuilder>>() ?? null;
         }
 
-        public Task<IBuiltTenantDefinition> BuildTenancyAsync(TenancyStore tenancyStore, TenantModel tenantDefinition)
+        public Task<IBuiltTenantDefinition> BuildTenancyAsync(TenancyDefinition tenantDefinition)
         {
             var builtDefinition = new BuiltTenantDefinition(tenantDefinition);
             logger?.LogInformation($"Tenant {tenantDefinition.TenantId.AsString} built.");
             return Task.FromResult<IBuiltTenantDefinition>(builtDefinition);
         }
 
-        public Task EstablishTenancyAsync(TenancyStore tenancyStore, TenantModel tenantDefinition)
+        public Task EstablishTenancyAsync(TenancyDefinition tenantDefinition)
         {
             logger?.LogInformation($"Tenant {tenantDefinition.TenantId.AsString} established.");
             return Task.CompletedTask;
         }
 
-        public Task MigrateTenancyAsync(TenancyStore tenancyStore, IBuiltTenantDefinition tenantDefinition)
+        public Task MigrateTenancyAsync(IBuiltTenantDefinition tenantDefinition)
         {
             logger?.LogInformation($"Tenant {tenantDefinition.Definition.TenantId.AsString} migrated.");
             return Task.CompletedTask;

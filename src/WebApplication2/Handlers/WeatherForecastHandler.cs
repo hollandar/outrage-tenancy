@@ -1,4 +1,6 @@
 ﻿using Outrage.Tenancy;
+using Outrage.Tenancy.Features;
+using WebApplication2.Data;
 
 namespace WebApplication2.Handlers
 {
@@ -14,15 +16,14 @@ namespace WebApplication2.Handlers
 
     public sealed class WeatherForecastHandler : IHttpGetHandler<WeatherForecastRequest>
     {
-        private readonly ITenancyService tenacyService;
-
-        public WeatherForecastHandler(ITenancyService tenacyService) {
-            this.tenacyService = tenacyService;
+        public WeatherForecastHandler() {
         }
         
         public async Task<IResult> GetAsync(HttpContext context, WeatherForecastRequest request)
         {
-            var tenant = await this.tenacyService.GetTenantAsync();
+            var tenant = context.Features.Get<IBuiltTenantDefinition>();
+            var dbContextFeature = tenant.Definition.Features.Get<IDbContextTenancyFeature<ReqsDbContext>>();
+            var dbContext = dbContextFeature.GetDbContext();
 
             var summaries = new[]
             {

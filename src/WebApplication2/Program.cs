@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Outrage.Tenancy;
-using Outrage.Tenancy.Data;
-using Outrage.Tenancy.Providers;
+using Outrage.Tenancy.Features;
+using Outrage.Tenancy.Postgres;
+using WebApplication2.Data;
 using WebApplication2.Extensions;
 using WebApplication2.Handlers;
+using WebApplication2.Tenancy;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IHttpHandler, WeatherForecastHandler>();
-builder.Services.AddTenancy(dbOptions =>
-{
-    dbOptions.UseNpgsql(builder.Configuration.GetConnectionString("Tenant"), o => o.MigrationsAssembly("Outrage.Tenancy.Postgres"));
-}, options =>
+builder.Services.AddScoped<ITenantBuilder, TenancyBuilder>();
+builder.Services.AddTenancyPostgres(builder.Configuration, "Tenant", options =>
 {
     builder.Configuration.GetSection("TenantOptions").Bind(options);
 });
@@ -50,6 +50,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseSession();
+app.UseTenancy();
 
 app.MapGetHandler<WeatherForecastRequest>("weatherforecast").WithName("GetWeatherForecast").WithOpenApi();
 

@@ -8,24 +8,24 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Outrage.Tenancy.Data;
-using Outrage.Tenancy.Models;
+using Outrage.Tenancy.Definition;
 
 namespace Outrage.Tenancy
 {
     public sealed class TenancyStore
     {
         private readonly TenancyDbContext dbContext;
-        private readonly Models.TenantModel tenantModel;
+        private readonly TenancyDefinition tenantModel;
         private readonly byte[] key;
 
-        public TenancyStore(TenancyDbContext dbContext, byte[] key, Models.TenantModel tenantModel)
+        public TenancyStore(TenancyDbContext dbContext, byte[] key, TenancyDefinition tenantModel)
         {
             this.dbContext = dbContext;
             this.key = key;
             this.tenantModel = tenantModel;
         }
 
-        public async Task EstablishTenancy(TenantModel tenantModel)
+        public async Task EstablishTenancy(TenancyDefinition tenantModel)
         {
         }
 

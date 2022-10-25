@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Outrage.Tenancy.Models
+namespace Outrage.Tenancy.Definition
 {
     public sealed class TenantId
     {

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Outrage.Tenancy.Data;
 using Outrage.Tenancy.Options;
 using Outrage.Tenancy.Providers;
+using Microsoft.AspNetCore.Builder;
 
 namespace Outrage.Tenancy
 {
@@ -23,9 +24,15 @@ namespace Outrage.Tenancy
             services.AddDbContext<TenancyDbContext>(dbOptionsBuilder);
 
             services.TryAddScoped<ITenancyIdProvider, HttpHostTenancyIdProvider>();
-            services.TryAddScoped<ITenancyService, TenancyService>();
+            //services.TryAddScoped<ITenancyService, TenancyService>();
 
             return services;
         }
+    public static IApplicationBuilder UseTenancy(this IApplicationBuilder application)
+        {
+            application.UseMiddleware<TenancyMiddleware>();
+            return application;
+        }
     }
+
 }

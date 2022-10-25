@@ -1,9 +1,9 @@
-﻿using Outrage.Tenancy.Models;
+﻿using Outrage.Tenancy.Definition;
 
 namespace Outrage.Tenancy
 {
-    public interface IBuiltTenantDefinition
+    public interface IBuiltTenantDefinition:IDisposable
     {
-           TenantModel Definition { get; }
+        TenancyDefinition Definition { get; }
     }
 }

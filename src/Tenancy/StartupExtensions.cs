@@ -24,7 +24,6 @@ namespace Outrage.Tenancy
             services.AddDbContext<TenancyDbContext>(dbOptionsBuilder);
 
             services.TryAddScoped<ITenancyIdProvider, HttpHostTenancyIdProvider>();
-            //services.TryAddScoped<ITenancyService, TenancyService>();
 
             return services;
         }
